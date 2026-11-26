@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANABADA | 교내 의류 교환</title>
+<style>
+:root{--ink:#1f2933;--muted:#65717e;--green:#236b50;--mint:#eaf5ef;--line:#dce5df;--cream:#fafbf8;--orange:#f1a34a}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--cream);color:var(--ink)}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:3}
+.nav{max-width:1100px;margin:auto;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-weight:900;letter-spacing:1px;color:var(--green);font-size:1.25rem}
+.logo span{color:var(--orange)}
+nav a{color:var(--ink);text-decoration:none;margin-left:18px;font-weight:650;font-size:.95rem}
+main{max-width:1100px;margin:auto;padding:28px 22px 70px}
+.hero{background:linear-gradient(125deg,#eaf5ef,#f8f3e8);padding:36px;border-radius:24px;display:grid;grid-template-columns:1.4fr .8fr;gap:20px;align-items:center}
+.eyebrow{font-size:.8rem;letter-spacing:1.6px;color:var(--green);font-weight:800}
+h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.12;margin:12px 0}
+.hero p{color:#4c5d55;line-height:1.7;max-width:650px}
+.hero-art{font-size:5.8rem;text-align:center}
+.btn{border:0;background:var(--green);color:white;padding:12px 18px;border-radius:12px;font-weight:750;cursor:pointer}
+.btn:hover{filter:brightness(.94)}
+.btn.secondary{background:#e5efe9;color:var(--green)}
+.btn.small{padding:8px 12px;font-size:.85rem}
+.section{margin-top:34px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:16px}
+h2{margin:0;font-size:1.5rem}
+.sub{color:var(--muted);margin:7px 0 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.stat{background:white;border:1px solid var(--line);padding:16px;border-radius:16px}
+.stat strong{display:block;font-size:1.5rem;color:var(--green)}
+.stat span{font-size:.88rem;color:var(--muted)}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+select,input,textarea{font:inherit;padding:11px;border:1px solid #ccd8d0;border-radius:10px;background:#fff;color:var(--ink)}
+.controls select{min-width:145px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:white;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.photo{height:190px;background:#f0f3ef;display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:4rem}
+.photo img{width:100%;height:100%;object-fit:cover}
+.cardbody{padding:16px;display:flex;flex-direction:column;gap:9px;flex:1}
+.card h3{margin:0;font-size:1.1rem}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{background:#edf4ef;color:#37634e;border-radius:999px;padding:5px 9px;font-size:.77rem;font-weight:650}
+.desc{color:var(--muted);font-size:.9rem;line-height:1.5;min-height:40px}
+.cardfoot{display:flex;gap:8px;align-items:center;margin-top:auto}
+.cardfoot .btn{flex:1}
+.status{font-size:.82rem;font-weight:700;color:#a05b17}
+.empty{grid-column:1/-1;background:white;border:1px dashed #b9c9bf;border-radius:16px;padding:34px;text-align:center;color:var(--muted)}
+.about{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.about-item{background:white;border:1px solid var(--line);border-radius:15px;padding:16px}
+.about-item b{color:var(--green);font-size:1.05rem}
+.about-item p{color:var(--muted);font-size:.9rem;line-height:1.5;margin-bottom:0}
+.notice{background:#fff7e8;border:1px solid #f0d6a9;border-radius:14px;padding:14px 16px;color:#745122;line-height:1.6;margin-top:16px}
+footer{text-align:center;color:var(--muted);padding:26px;border-top:1px solid var(--line);background:white}
+dialog{border:0;border-radius:20px;padding:0;width:min(560px,calc(100% - 24px));box-shadow:0 20px 70px #0003}
+dialog::backdrop{background:#17231d88}
+.modal{padding:24px}
+.modal h2{margin-bottom:18px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.formgrid label{display:flex;flex-direction:column;gap:6px;font-size:.88rem;font-weight:700}
+.formgrid .wide{grid-column:1/-1}
+.formgrid textarea{min-height:80px;resize:vertical}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.hero-art{display:none}.grid{grid-template-columns:repeat(2,1fr)}.about{grid-template-columns:repeat(2,1fr)}nav a{margin-left:9px}}
+@media(max-width:560px){.nav{padding:13px 16px}nav a{font-size:.82rem}main{padding:20px 15px 50px}.hero{padding:24px}.grid{grid-template-columns:1fr}.photo{height:220px}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.about{grid-template-columns:1fr 1fr}.formgrid{grid-template-columns:1fr}.formgrid .wide{grid-column:auto}}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="logo">ANA<span>BADA</span></div>
+    <nav><a href="#board">교환 게시판</a><a href="#about">아나바다란?</a></nav>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div>
+      <div class="eyebrow">SCHOOL CLOTHING SWAP</div>
+      <h1>옷은 나누고,<br>가치는 이어가고.</h1>
+      <p>잘 입지 않는 옷을 필요한 사람과 교환해 보세요.<br>새로운 구매 대신 나눔과 교환으로 의류 폐기물을 줄이는 작은 실천!</p>
+      <button class="btn" onclick="openForm()">+ 교환할 옷 등록하기</button>
+      <div class="stats">
+        <div class="stat"><strong id="itemCount">0</strong><span>등록된 옷</span></div>
+        <div class="stat"><strong id="requestCount">0</strong><span>교환 신청</span></div>
+        <div class="stat"><strong id="swapCount">0</strong><span>교환 완료</span></div>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">👕 ♻️ 🧥</div>
+  </section>
+
+  <section class="section" id="board">
+    <div class="section-head">
+      <div><h2>교환 게시판</h2><p class="sub">등록된 옷을 살펴보고 교환을 신청해 보세요.</p></div>
+      <button class="btn secondary" onclick="openForm()">옷 등록</button>
+    </div>
+    <div class="controls">
+      <select id="filterCategory" onchange="render()"><option value="">전체 종류</option><option>상의</option><option>하의</option><option>아우터</option><option>신발</option><option>기타</option></select>
+      <select id="filterStatus" onchange="render()"><option value="">전체 상태</option><option value="available">교환 가능</option><option value="requested">신청 중</option><option value="completed">교환 완료</option></select>
+      <input id="search" placeholder="옷 이름 검색" oninput="render()">
+    </div>
+    <div class="grid" id="items"></div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="section-head"><div><h2>아나바다 실천하기</h2><p class="sub">작은 교환이 불필요한 소비와 폐기물을 줄이는 데 도움이 됩니다.</p></div></div>
+    <div class="about">
+      <div class="about-item"><b>아껴 쓰기</b><p>물건을 소중히 사용하고 필요 이상의 소비를 줄여요.</p></div>
+      <div class="about-item"><b>나눠 쓰기</b><p>사용하지 않는 물건을 필요한 사람과 나눠요.</p></div>
+      <div class="about-item"><b>바꿔 쓰기</b><p>서로 필요한 물건을 교환해 새 구매를 줄여요.</p></div>
+      <div class="about-item"><b>다시 쓰기</b><p>수선하거나 재사용해 물건의 수명을 늘려요.</p></div>
+    </div>
+    <div class="notice">※ 시연용 웹사이트입니다. 실제 교환은 학교에서 정한 장소와 시간에 진행하고, 개인정보(전화번호·주소 등)는 게시하지 마세요.</div>
+  </section>
+</main>
+<footer>ANABADA · 교내 의류 교환 프로젝트</footer>
+
+<dialog id="itemDialog">
+  <div class="modal">
+    <h2>교환할 옷 등록하기</h2>
+    <form id="itemForm">
+      <div class="formgrid">
+        <label>옷 이름<input name="name" required maxlength="40" placeholder="예: 회색 후드티"></label>
+        <label>종류<select name="category" required><option>상의</option><option>하의</option><option>아우터</option><option>신발</option><option>기타</option></select></label>
+        <label>사이즈<input name="size" required maxlength="20" placeholder="예: M, 260, 프리"></label>
+        <label>상태<select name="condition" required><option>새 상품에 가까움</option><option>사용감 적음</option><option>사용감 있음</option></select></label>
+        <label class="wide">사진 (선택)<input name="photo" type="file" accept="image/*"></label>
+        <label class="wide">설명<textarea name="description" maxlength="180" placeholder="색상, 특징, 교환 시 참고사항 등"></textarea></label>
+      </div>
+      <div class="modal-actions"><button type="button" class="btn secondary" onclick="closeForm()">취소</button><button class="btn" type="submit">등록하기</button></div>
+    </form>
+  </div>
+</dialog>
+
+<script>
+const KEY="anabada_clothes_v1";
+let clothes=load();
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return []}}
+function save(){localStorage.setItem(KEY,JSON.stringify(clothes))}
+function openForm(){document.getElementById("itemDialog").showModal()}
+function closeForm(){document.getElementById("itemDialog").close();document.getElementById("itemForm").reset()}
+function safe(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+document.getElementById("itemForm").addEventListener("submit",async e=>{
+  e.preventDefault();const f=e.target,fd=new FormData(f),file=f.photo.files[0];
+  let photo="";
+  if(file){if(file.size>1.5*1024*1024){alert("사진 파일은 1.5MB 이하로 선택해 주세요.");return}
+    photo=await new Promise(resolve=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=()=>resolve("");r.readAsDataURL(file)});
+  }
+  clothes.unshift({id:Date.now(),name:fd.get("name"),category:fd.get("category"),size:fd.get("size"),condition:fd.get("condition"),description:fd.get("description"),photo,status:"available",requests:0,created:new Date().toLocaleDateString("ko-KR")});
+  save();closeForm();render();
+});
+function requestSwap(id){
+ const item=clothes.find(x=>x.id===id);if(!item||item.status!=="available")return;
+ if(!confirm("이 옷에 교환 신청을 할까요? (시연용 신청입니다)"))return;
+ item.status="requested";item.requests=(item.requests||0)+1;save();render();
+}
+function completeSwap(id){const item=clothes.find(x=>x.id===id);if(!item)return;if(confirm("교환 완료 상태로 변경할까요? (시연용)")){item.status="completed";save();render()}}
+function deleteItem(id){if(confirm("등록한 옷을 삭제할까요?")){clothes=clothes.filter(x=>x.id!==id);save();render()}}
+function render(){
+ const category=document.getElementById("filterCategory").value,status=document.getElementById("filterStatus").value,q=document.getElementById("search").value.trim().toLowerCase();
+ const filtered=clothes.filter(x=>(!category||x.category===category)&&(!status||x.status===status)&&(!q||x.name.toLowerCase().includes(q)));
+ document.getElementById("itemCount").textContent=clothes.length;
+ document.getElementById("requestCount").textContent=clothes.reduce((n,x)=>n+(x.requests||0),0);
+ document.getElementById("swapCount").textContent=clothes.filter(x=>x.status==="completed").length;
+ const root=document.getElementById("items");
+ if(!filtered.length){root.innerHTML='<div class="empty">등록된 옷이 없어요. 첫 번째 교환 물품을 등록해 보세요! 👕</div>';return}
+ root.innerHTML=filtered.map(x=>{
+  const label=x.status==="available"?"교환 가능":x.status==="requested"?"신청 중":"교환 완료";
+  const action=x.status==="available"?`<button class="btn small" onclick="requestSwap(${x.id})">교환 신청</button>`:x.status==="requested"?`<button class="btn small secondary" onclick="completeSwap(${x.id})">완료로 변경 (시연)</button>`:`<span class="status">교환 완료</span>`;
+  return `<article class="card"><div class="photo">${x.photo?`<img src="${x.photo}" alt="${safe(x.name)} 사진">`:"👚"}</div><div class="cardbody"><h3>${safe(x.name)}</h3><div class="tags"><span class="tag">${safe(x.category)}</span><span class="tag">사이즈 ${safe(x.size)}</span><span class="tag">${safe(x.condition)}</span></div><div class="desc">${safe(x.description)||"설명이 등록되지 않았어요."}</div><div class="status">${label} · 신청 ${x.requests||0}건</div><div class="cardfoot">${action}<button class="btn small secondary" onclick="deleteItem(${x.id})">삭제</button></div></div></article>`
+ }).join("");
+}
+render();
+</script>
+</body>
+</html>
